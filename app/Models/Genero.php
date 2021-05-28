@@ -9,4 +9,5 @@ class Genero extends Model
 {
     use HasFactory;
     protected $table = 'genero';
+    public $timestamps = true;
 }

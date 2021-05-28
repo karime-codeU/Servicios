@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Model;
+use App\Models\Genero;
 
 class ApiController extends Controller
 {
@@ -17,33 +17,41 @@ class ApiController extends Controller
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMEREQUEST => "GET",
-            CURLOPT_HTTPHEADER => {
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => [
                 "x-rapidapi-host: deezerdevs-deezer.p.rapidapi.com",
                 "xrapidapi-key: SIGN-UP-FOR-KEY"
-            },
+            ],
         ]);
 
         $response = curl_exec($curl);
         $err = curl_error($curl);
 
-        curl_close($curl)
+        curl_close($curl);
 
         if($err){
             echo "cURL Error #:" . $err;
         } else {
             $objeto = json_decode($response);
-            foreach (objeto -> data as $genero){
+            foreach ($objeto -> data as $genero){
                 echo json_encode($genero);
-                $verificar = Genero::where('name',$genero->name)->first();
-                if(!$verificar)
-                    $nuevoGenero = new Genero();
+                $ngenero = Genero::where('name','==',$genero->name)->first();
+                if(!$ngenero)
+                    $ngenero = new Genero();
                 
-                $nuevoGenero->name = $genero->name;
-                $nuevoGenero->save();
-
-
+                $ngenero->name = $genero->name;
+                $ngenero->type = $genero->type;
+                $ngenero->picture = $genero->picture;
+                $ngenero->save();
             }
+        }
+    }
+
+    public function mostrarRegistros(){
+        $generos = Genero::all();
+        foreach ($generos as $genero){
+            $genero->type = "Hola";
+            $genero->delete();
         }
     }
 }
