@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Model
+use Model;
 
 class ApiController extends Controller
 {
