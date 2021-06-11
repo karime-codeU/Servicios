@@ -49,9 +49,15 @@ class ApiController extends Controller
 
     public function mostrarRegistros(){
         $generos = Genero::all();
-        foreach ($generos as $genero){
-            $genero->type = "Hola";
-            $genero->delete();
-        }
+        /*foreach ($generos as $genero){
+            $genero->type;
+        }*/
+        echo json_encode($generos);
+    }
+
+    public function obtenerGenero($id)
+    {
+        $genero = Genero::find($id);
+        echo json_encode($genero);
     }
 }

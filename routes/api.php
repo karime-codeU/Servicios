@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\http\Controllers\ApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,4 +23,7 @@ Route::get('/saludo', function(){
     echo json_encode("Hola desde mi primer api rest");
 });
 
+Route::get('get/generos', [ApiController::class,'obtenerGeneros'])->name('obtener.generos');
+Route::get('get/registros', [ApiController::class,'mostrarRegistros'])->name('mostrar.generos');
+Route::get('/get/genero/{id}', [ApiController::class,'obtenerGenero'])->name('obtener.genero');
 
