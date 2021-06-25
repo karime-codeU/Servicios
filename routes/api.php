@@ -27,3 +27,5 @@ Route::get('get/generos', [ApiController::class,'obtenerGeneros'])->name('obtene
 Route::get('get/registros', [ApiController::class,'mostrarRegistros'])->name('mostrar.generos');
 Route::get('/get/genero/{id}', [ApiController::class,'obtenerGenero'])->name('obtener.genero');
 
+Route::get('/get/artistas', [ApiController::class,'obtenerArtistas'])->name('obtener.artistas');
+Route::get('/get/artista/{id}', [ApiController::class,'obtenerArtista'])->name('obtener.artista');

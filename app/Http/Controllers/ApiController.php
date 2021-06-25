@@ -60,4 +60,64 @@ class ApiController extends Controller
         $genero = Genero::find($id);
         echo json_encode($genero);
     }
+
+    public function obtenerArtistas(){
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => 'https://api.deezer.com/artist',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => [
+                "x-rapidapi-host: deezerdevs-deezer.p.rapidapi.com",
+                "xrapidapi-key: SIGN-UP-FOR-KEY"
+            ],
+        ]);
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if($err){
+            echo "cURL Error #:" . $err;
+        } else {
+            $objeto = json_decode($response);
+            echo json_encode($objeto);
+        }
+    }
+
+    public function obtenerArtista($id){
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => 'https://api.deezer.com/artist/'+$id,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => [
+                "x-rapidapi-host: deezerdevs-deezer.p.rapidapi.com",
+                "xrapidapi-key: SIGN-UP-FOR-KEY"
+            ],
+        ]);
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if($err){
+            echo "cURL Error #:" . $err;
+        } else {
+            $objeto = json_decode($response);
+            echo json_encode($objeto);
+        }
+    }
 }
